@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Comparison Tool</title>
+</head>
+<body>
+    <header><h1>Difference check Tool</h1></header>
+    
+    <form action="/compare" method="post" enctype="multipart/form-data">
+        <h3>Upload file</h3>
+        <input type="file" id="file1" name="file1"><br><br>
+        <br>
+        <p>- - - - or type/paste the text here - - - - </p>
+        <br><br>
+        <textarea name="text1" cols="80" rows="20" class="inputText" id="inputText1" placeholder="Paste one version of a text here."></textarea>
+        <h3>Upload file</h3>
+        <input type="file" id="file2" name="file2"><br><br>
+        <p>- - - - or type/paste the text here - - - - </p>
+        <br><br>
+        <textarea name="text2" cols="80" rows="20" class="inputText" id="inputText2" placeholder="Paste one version of a text here."></textarea>
+        <br><br>
+        <input type="submit" value="Compare">
+    </form>
+
+    <script>
+        // Function to handle file input change
+        function handleFileInputChange(fileInput, textArea) {
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Set the value of the corresponding text area
+                    textArea.value = e.target.result;
+                };
+
+                // Read the file as text
+                reader.readAsText(file);
+            } else {
+                // Clear the text area if no file is selected
+                textArea.value = '';
+            }
+        }
+
+        // Add event listeners for file input changes
+        document.getElementById('file1').addEventListener('change', function (e) {
+            handleFileInputChange(e.target, document.getElementById('inputText1'));
+        });
+
+        document.getElementById('file2').addEventListener('change', function (e) {
+            handleFileInputChange(e.target, document.getElementById('inputText2'));
+        });
+    </script>
+
+    
+</body>
+</html>
